@@ -1,0 +1,22 @@
+{
+  "name": "broset",
+  "description": "This is a static webserver where the user can enter broset scores on patients. This is a student project (NSS in Nashville).",
+  "main": "index.js",
+  "authors": [
+    "Dave Harms <daveharmswebdev@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/daveharmswebdev/broset",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
