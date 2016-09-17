@@ -5,4 +5,4 @@ This is a static webserver where the user can enter broset scores on patients. T
 Node/Express, Pug, MongoDB, NPM and Bower.
 
 ## Hosting
-The web server will be hosted on Heroku, and Mongo will be hosted on Mlab.
+The web server is hosted on Heroku at https://nss-broset.herokuapp.com/, and Mongo will be hosted on Mlab.
