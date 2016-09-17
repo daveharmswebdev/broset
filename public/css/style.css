@@ -11,3 +11,12 @@
 	border: 1px solid black;
 	float: right;
 }
+
+.devel {
+	border: 2px dashed black;
+}
+
+/*broset page*/
+.broset--input {
+	width: 50vw;
+}

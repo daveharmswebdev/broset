@@ -7,5 +7,15 @@ module.exports = mongoose.model('Patient', {
 	firstName: String,
 	room: String,
 	physician: String,
-	admissionDate: String
+	admissionDate: String,
+	brosetScore: {
+		type: [
+			{
+				score: { type: Number, required: true },
+				intervention: { type: String, default: 'None entered'},
+				date: { type: String, default: new Date().toLocaleString() }
+			}
+		], 
+		default: []
+	}
 })
