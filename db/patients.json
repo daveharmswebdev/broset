@@ -1,0 +1,23 @@
+[
+	{
+		"lastName":"Doe",
+		"firstName": "John",
+		"room": "101a",
+		"physician": "Smith, Henry",
+		"admissionDate": "9/17/2016, 6:58:05 AM"
+	},
+	{
+		"lastName":"Doyle",
+		"firstName": "Josh",
+		"room": "102a",
+		"physician": "Brown, Heather",
+		"admissionDate": "9/04/2016, 9:32:05 PM"
+	},
+	{
+		"lastName":"Peeples",
+		"firstName": "Trevor",
+		"room": "207b",
+		"physician": "Leary, Michael",
+		"admissionDate": "8/30/2016, 12:09:30 AM"
+	}
+]

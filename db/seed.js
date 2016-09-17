@@ -5,17 +5,10 @@ const { connect, disconnect } = require('./database')
 
 // use patients model
 const Patient = require('../models/patient')
+const patients = require('./patients.json')
 
 connect()
 	.then(() => Patient.remove({}))
-	.then(() => Patient.insertMany([
-			{
-				lastName: 'Doe',
-				firstName: 'John',
-				room: '101a',
-				physician: 'Smith, Henry',
-				admissionDate: new Date().toUTCString()
-			}
-		]))
+	.then(() => Patient.insertMany(patients))
 	.then(disconnect)
 	.catch(console.error)
