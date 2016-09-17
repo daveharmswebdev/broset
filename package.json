@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "This is a static webserver where the user can enter broset scores on patients. This is a student project (NSS in Nashville).",
   "main": "index.js",
+  "engines": {
+    "node": 6
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "bower install",
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
