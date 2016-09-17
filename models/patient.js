@@ -12,7 +12,7 @@ module.exports = mongoose.model('Patient', {
 		type: [
 			{
 				score: { type: Number, required: true },
-				intervention: String,
+				intervention: { type: String, default: 'None entered'},
 				date: { type: String, default: new Date().toLocaleString() }
 			}
 		], 

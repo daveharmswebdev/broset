@@ -32,7 +32,13 @@ router.get('/broset/:patientID', (req, res, next) => {
 		.find({ '_id': req.params.patientID })
 		.then( patient => {
 			console.log(patient[0])
-			res.render('broset', { patient: patient[0] })
+			res.render(
+				'broset',
+				{ 
+					patient: patient[0], 
+					scores: patient[0].brosetScore 
+				}
+			)
 		})
 		.catch( err => next(err))
 })
