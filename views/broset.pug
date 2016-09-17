@@ -1,7 +1,9 @@
 extends includes/layout.pug
 
 block content
-	h1 Add Broset Score
+	.broset.col-sm-10.col-sm-offset-1
+		h1 Broset
+		h3 Patient
 		.row
 			.col-sm-1.col-sm-offset-1
 				p #{patient.room}
@@ -11,3 +13,14 @@ block content
 				p #{patient.physician}
 			.col-sm-3
 				p #{patient.admissionDate}
+		.broset--add
+			h3 New Score
+			form(method='POST')
+				.form-group
+					label(for='score') Score
+					input#score(type='text', name='score', placeholder='i.e. 6')
+				.form-group
+					label(for='score') Intervention
+					input#intervention(type='text', name='intervention', placeholder='i.e. 6')
+				button.btn.btn-primary(type='submit') Add Score
+
