@@ -12,7 +12,8 @@ module.exports = mongoose.model('Patient', {
 		type: [
 			{
 				score: { type: Number, required: true },
-				intervention: { type: String, default: 'None entered'},
+				intervention: String,
+				comment: String,
 				dateString: String,
 				date: Number
 			}

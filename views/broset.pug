@@ -32,9 +32,18 @@ block content
 				.form-group
 					.row
 						.col-sm-4
-							label(for='score') Intervention
+							label(for='intervention') Intervention
 						.col-sm-8
-							input.broset--input#intervention(type='text', name='intervention', placeholder='i.e. 6')
+							select.form-control.broset--input#intervention(name='intervention' required)
+								option(disabled selected) Select Intervention
+								each val in interventions 
+									option(value=val.name) val.name
+				.form-group
+					.row
+						.col-sm-4
+							label(for='comment') Comment
+						.col-sm-8
+							input.broset--input#comment(type='text', name='comment', placeholder='i.e. ativan 1mg po')
 				button.btn.btn-primary(type='submit') Add Score
 		.broset--history
 			h2 Patient Broset History
