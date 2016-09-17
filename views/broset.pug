@@ -37,7 +37,7 @@ block content
 							select.form-control.broset--input#intervention(name='intervention' required)
 								option(disabled selected) Select Intervention
 								each val in interventions 
-									option(value=val.name) val.name
+									option(value=val.name) #{val.name}
 				.form-group
 					.row
 						.col-sm-4
