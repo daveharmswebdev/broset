@@ -37,4 +37,26 @@ router.get('/broset/:patientID', (req, res, next) => {
 		.catch( err => next(err))
 })
 
+router.post('/broset/:patientID', (req, res, next) => {
+	Patient
+		.update(
+			{ 
+				'_id': req.params.patientID
+			}, 
+			{
+				$push: {
+					'brosetScore': {
+						score: req.body.score,
+						intervention: req.body.intervention
+					}
+				}
+			}
+		)
+		.then(() => {
+			let currentPage = `/broset/${req.params.patientID}`
+			res.redirect(currentPage)
+		})
+		.catch( err => next(err))
+})
+
 module.exports = router
