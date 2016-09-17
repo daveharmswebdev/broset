@@ -27,4 +27,14 @@ router.post('/admit', (req, res, next) => {
 		.catch((err) => next(err))
 })
 
+router.get('/broset/:patientID', (req, res, next) => {
+	Patient
+		.find({ '_id': req.params.patientID })
+		.then( patient => {
+			console.log(patient[0])
+			res.render('broset', { patient: patient[0] })
+		})
+		.catch( err => next(err))
+})
+
 module.exports = router

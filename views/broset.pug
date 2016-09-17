@@ -1,0 +1,13 @@
+extends includes/layout.pug
+
+block content
+	h1 Add Broset Score
+		.row
+			.col-sm-1.col-sm-offset-1
+				p #{patient.room}
+			.col-sm-3
+				p #{patient.lastName}, #{patient.firstName}
+			.col-sm-3
+				p #{patient.physician}
+			.col-sm-3
+				p #{patient.admissionDate}
