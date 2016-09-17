@@ -1,0 +1,24 @@
+extends includes/layout.pug
+
+block content
+	.admit
+		h1 New Patient
+		form(method='POST')
+			.form-group
+				label(for='lastName') Last Name
+				input#lastName(type='text', name='lastName', placeholder='i.e. Doe')
+			.form-group
+				label(for='firstName') First Name
+				input#firstName(type='text', name='firstName', placeholder='i.e. John')
+			.form-group
+				label(for='room') Room
+				input#room(type='text', name='room', placeholder='i.e. 101a')
+			.form-group
+				label(for='physician') Physician
+				input#physician(type='text', name='physician', placeholder='i.e. Oder, Benjamin')
+			button.btn.btn-primary(type="submit") Admit
+
+
+
+
+
