@@ -17,6 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(routes)
 
+app.use((error, req, res, next) => {
+  res.sendStatus(500)
+  console.log(error)
+})
+
 connect()
 	.then(() => {
 		app.listen(app.get('port'), () => {
