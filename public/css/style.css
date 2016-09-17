@@ -1,0 +1,13 @@
+
+/*admission form*/
+.admit > h1, .admit > form {
+	text-align: center;
+	width: 90vw;
+	margin: 1rem auto;
+}
+
+.form-group > input {
+	margin: 0 1rem;
+	border: 1px solid black;
+	float: right;
+}

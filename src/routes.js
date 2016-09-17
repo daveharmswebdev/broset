@@ -13,4 +13,8 @@ router.get('/', (req, res) => {
 		.then( patients => res.render('home', {patients}))
 })
 
+router.get('/admit', (req, res) => {
+	res.render('admit')
+})
+
 module.exports = router
