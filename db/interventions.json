@@ -1,0 +1,12 @@
+[
+	{ "name": "medication" },
+	{ "name": "observation" },
+	{ "name": "seclusion" },
+	{ "name": "discharge" },
+	{ "name": "counseling" },
+	{ "name": "redirection" },
+	{ "name": "distraction" },
+	{ "name": "time out" },
+	{ "name": "room change" },
+	{ "name": "roommate change" }
+]

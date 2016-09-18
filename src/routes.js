@@ -5,6 +5,7 @@ const router = Router()
 
 //models
 const Patient = require('../models/patient')
+const Intervention = require('../models/intervention')
 
 router.get('/', (req, res) => {
 	Patient
@@ -28,17 +29,18 @@ router.post('/admit', (req, res, next) => {
 })
 
 router.get('/broset/:patientID', (req, res, next) => {
-	Patient
-		.find({ '_id': req.params.patientID })
-		.then( patient => {
-			console.log(patient[0])
-			res.render(
-				'broset',
-				{ 
-					patient: patient[0], 
-					scores: patient[0].brosetScore 
-				}
-			)
+
+	Promise
+		.all([
+			Patient.find({ '_id': req.params.patientID }),
+			Intervention.find().sort({name: 1})
+		])
+		.then(([patients, interventions]) => {
+			res.render('broset', {
+				patient: patients[0], 
+				scores: patients[0].brosetScore, 
+				interventions: interventions
+		  })
 		})
 		.catch( err => next(err))
 })
@@ -53,7 +55,10 @@ router.post('/broset/:patientID', (req, res, next) => {
 				$push: {
 					'brosetScore': {
 						score: req.body.score,
-						intervention: req.body.intervention
+						intervention: req.body.intervention,
+						comment: req.body.comment,
+						dateString: new Date().toLocaleString(),
+						date: Date.now()
 					}
 				}
 			}

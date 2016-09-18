@@ -17,11 +17,33 @@ block content
 			h2 New Score
 			form(method='POST')
 				.form-group
-					label(for='score') Score
-					input.broset--input#score(type='text', name='score', placeholder='i.e. 6')
+					.row
+						.col-sm-4
+							label(for='score') Score
+						.col-sm-8
+							select.form-control.broset--input#score(name='score' required)
+								option(disabled selected) Select Score 1 to 6
+								option(value='1') 1
+								option(value='2') 2
+								option(value='3') 3
+								option(value='4') 4
+								option(value='5') 5
+								option(value='6') 6
 				.form-group
-					label(for='score') Intervention
-					input.broset--input#intervention(type='text', name='intervention', placeholder='i.e. 6')
+					.row
+						.col-sm-4
+							label(for='intervention') Intervention
+						.col-sm-8
+							select.form-control.broset--input#intervention(name='intervention' required)
+								option(disabled selected) Select Intervention
+								each val in interventions 
+									option(value=val.name) #{val.name}
+				.form-group
+					.row
+						.col-sm-4
+							label(for='comment') Comment
+						.col-sm-8
+							input.broset--input#comment(type='text', name='comment', placeholder='i.e. ativan 1mg po')
 				button.btn.btn-primary(type='submit') Add Score
 		.broset--history
 			h2 Patient Broset History
@@ -29,8 +51,10 @@ block content
 				.row
 					.col-sm-2.col-sm-offset-1
 						p #{score.score}
-					.col-sm-6
+					.col-sm-2
 						p #{score.intervention}
 					.col-sm-2
-						p #{score.date}
+						p #{score.comment}
+					.col-sm-2
+						p #{score.dateString}
 
