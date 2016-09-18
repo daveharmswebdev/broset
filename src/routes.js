@@ -56,6 +56,7 @@ router.post('/broset/:patientID', (req, res, next) => {
 					'brosetScore': {
 						score: req.body.score,
 						intervention: req.body.intervention,
+						comment: req.body.comment,
 						dateString: new Date().toLocaleString(),
 						date: Date.now()
 					}
