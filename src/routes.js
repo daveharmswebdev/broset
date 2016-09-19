@@ -1,11 +1,13 @@
 'use strict'
 
 const { Router } = require('express')
+const bcrypt = require('bcrypt')
 const router = Router()
 
 //models
 const Patient = require('../models/patient')
 const Intervention = require('../models/intervention')
+const User = require('../models/user')
 
 router.get('/', (req, res) => {
 	Patient
@@ -44,6 +46,43 @@ router.get('/broset/:patientID', (req, res, next) => {
 		})
 		.catch( err => next(err))
 })
+
+router.post('/login', (req, res, next) => {
+	console.log('Post ', req.body)
+	User
+		.findOne({user: req.body.user})
+		.then( user => {
+			console.log('user', user)
+			bcrypt.compare(req.body.pass, user.pass, (err, matches) => {
+				if (matches) {
+					console.log('matches', matches)
+					console.log('looks like we made it')
+					res.redirect('/')
+				} else {
+					res.render('login', { error: 'User and pass do not match'})
+				}
+			})
+		})
+		.catch( err => next(err))
+})
+
+router.get('/login', (req, res) => {
+	res.render('login', {})
+})
+
+router.get('/register', (req, res) => {
+	res.render('register')
+})
+
+router.post('/register', (req, res) => {
+		bcrypt.hash(req.body.pass, 15, (err,hash) => {
+			User
+				.create({user: req.body.user, pass: hash})
+				.then(() => res.redirect('/'))
+				.catch( err => next(err))
+		})
+})
+
 
 router.post('/broset/:patientID', (req, res, next) => {
 	Patient
