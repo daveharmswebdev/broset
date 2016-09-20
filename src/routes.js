@@ -47,21 +47,31 @@ router.get('/broset/:patientID', (req, res, next) => {
 		.catch( err => next(err))
 })
 
-router.post('/login', (req, res, next) => {
-	console.log('Post ', req.body)
+router.post('/login', ({body: {user, pass}}, res, next) => {
 	User
-		.findOne({user: req.body.user})
+		.findOne({user})
 		.then( user => {
-			console.log('user', user)
-			bcrypt.compare(req.body.pass, user.pass, (err, matches) => {
-				if (matches) {
-					console.log('matches', matches)
-					console.log('looks like we made it')
-					res.redirect('/')
-				} else {
-					res.render('login', { error: 'User and pass do not match'})
-				}
-			})
+			if (user) {
+				return new Promise((resolve, reject) => {
+					bcrypt.compare(pass, user.pass, (err, matches) => {
+						if (err) {
+							reject(err)
+						} else {
+							resolve(matches)
+						}
+					})
+				})
+			} else {
+				res.render('login', { error: 'That email is not registered with a user' })
+			}
+		})
+		.then( matches => {
+			if (matches) {
+				console.log('matches: ', matches)
+				res.redirect('/')
+			} else {
+				res.render('login', {error: 'password does not match!'})
+			}
 		})
 		.catch( err => next(err))
 })
@@ -74,13 +84,37 @@ router.get('/register', (req, res) => {
 	res.render('register')
 })
 
-router.post('/register', (req, res) => {
-		bcrypt.hash(req.body.pass, 15, (err,hash) => {
-			User
-				.create({user: req.body.user, pass: hash})
-				.then(() => res.redirect('/'))
-				.catch( err => next(err))
-		})
+router.post('/register', ({body: {user, pass, confirmation}}, res) => {
+	if (pass === confirmation) {
+		User
+			.findOne({user})
+			.then( user => {
+				if (user) {
+					res.render('register', {error: 'email already being used'})
+				} else {
+					return new Promise((resolve, reject) => {
+						bcrypt.hash(pass, 15, (err,hash) => {
+							if (err) {
+								reject(err)
+							} else {
+								resolve(hash)
+							}
+						})
+					})
+				}
+			})
+			.then(hash => User.create({ user, pass: hash}))
+			.then(() => res.redirect('/'))
+			// .catch(err)
+		// bcrypt.hash(pass, 15, (err,hash) => {
+		// 	User
+		// 		.create({user: user, pass: hash})
+		// 		.then(() => res.redirect('/'))
+		// 		.catch( err => next(err))
+		// })
+	} else {
+		res.render('register', { error: 'Password and confirm do not match'})
+	}
 })
 
 
