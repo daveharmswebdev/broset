@@ -20,8 +20,8 @@ router.get('/admit', (req, res) => {
 	res.render('admit')
 })
 
-router.post('/admit', (req, res, next) => {
-	let newPatient = req.body
+router.post('/admit', ({body}, res, next) => {
+	let newPatient = body
 	newPatient.admissionDate = new Date().toLocaleString()
 
 	Patient
@@ -30,11 +30,11 @@ router.post('/admit', (req, res, next) => {
 		.catch((err) => next(err))
 })
 
-router.get('/broset/:patientID', (req, res, next) => {
+router.get('/broset/:_id', ({params: {_id}}, res, next) => {
 
 	Promise
 		.all([
-			Patient.find({ '_id': req.params.patientID }),
+			Patient.find({_id}),
 			Intervention.find().sort({name: 1})
 		])
 		.then(([patients, interventions]) => {
@@ -105,31 +105,24 @@ router.post('/register', ({body: {user, pass, confirmation}}, res) => {
 			})
 			.then(hash => User.create({ user, pass: hash}))
 			.then(() => res.redirect('/'))
-			// .catch(err)
-		// bcrypt.hash(pass, 15, (err,hash) => {
-		// 	User
-		// 		.create({user: user, pass: hash})
-		// 		.then(() => res.redirect('/'))
-		// 		.catch( err => next(err))
-		// })
 	} else {
 		res.render('register', { error: 'Password and confirm do not match'})
 	}
 })
 
 
-router.post('/broset/:patientID', (req, res, next) => {
+router.post('/broset/:_id', ({params: {_id}, body: {intervention, comment, score}}, res, next) => {
 	Patient
 		.update(
 			{ 
-				'_id': req.params.patientID
+				_id
 			}, 
 			{
 				$push: {
 					'brosetScore': {
-						score: req.body.score,
-						intervention: req.body.intervention,
-						comment: req.body.comment,
+						score: score,
+						intervention: intervention,
+						comment: comment,
 						dateString: new Date().toLocaleString(),
 						date: Date.now()
 					}
@@ -137,7 +130,7 @@ router.post('/broset/:patientID', (req, res, next) => {
 			}
 		)
 		.then(() => {
-			let currentPage = `/broset/${req.params.patientID}`
+			let currentPage = `/broset/${_id}`
 			res.redirect(currentPage)
 		})
 		.catch( err => next(err))
