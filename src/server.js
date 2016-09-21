@@ -2,47 +2,70 @@
 
 const bodyParser = require('body-parser')
 const express = require('express')
-const app = express()
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
+const { red, cyan} = require('chalk')
+
 const routes = require('../routes/index')
 const { connect } = require('../db/database')
+
+const app = express()
 
 const port = process.env.PORT || 3000
 app.set('port', port)
 
 // using pug to server static files
-app.set('views', 'views')
 app.set('view engine', 'pug')
-app.use(express.static('public'))
-app.use(bodyParser.urlencoded({ extended: false }))
+
+
+app.locals.errors = {} // to avoid guard statements
+app.locals.body = {}
+
+// middlewares
 app.use(session({
 	store: new RedisStore(),
 	secret: 'everyoneIsA6'
 }))
 
-// locals
-// app.locals.company
-// app.locals.errors 
-// app.locals.body
-// app.locals.user
+// logs out methods
+app.use(({ method, url, headers: { 'user-agent': agent}}, res, next) => {
+	const timeStamp = new Date()
+	console.log(`[${timeStamp}] "${cyan(`${method} ${url}`)}" "${agent}"`)
+	next()
+})
 
-// middleware that captures the user
-// check his pug file as well he did something with the login and register logic
-// for session storage we will use redis
-// app.use((req, res, next) => {
-// 
-// 	app.locals.user = req.session.user
-// })
+app.use(express.static('public'))
+app.use(bodyParser.urlencoded({ extended: false }))
 
+// routes
 app.use(routes)
 
+// 404 page
 app.use((req, res) => res.render('404'))
 
-app.use((error, req, res, next) => {
-  res.sendStatus(500)
-  console.log(error)
-})
+// error handling middleware
+app.use((
+		err, 
+		{ method, url, headers: { 'user-agent': agent } }, 
+		res, 
+		next
+	) => {
+		if (process.env.NODE_ENV === 'production') {
+		  res.sendStatus(err.status || 500)
+		} else {
+			res.set('Content-Type', 'text/plain').send(err.stack)
+		}
+
+		const timeStamp = new Date()
+		const statusCode = res.statusCode
+		const statusMessage = res.statusMessage
+
+	  console.error(
+    	`[${timeStamp}] "${red(`${method} ${url}`)}" Error (${statusCode}): "${statusMessage}"`
+    )
+	  console.log(err.stack)
+	}
+)
 
 connect()
 	.then(() => {
