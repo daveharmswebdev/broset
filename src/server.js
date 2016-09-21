@@ -1,12 +1,12 @@
 'use strict'
 
-const express = require('express')
 const bodyParser = require('body-parser')
-const routes = require('../routes/index')
+const express = require('express')
 const app = express()
-const { connect } = require('../db/database')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
+const routes = require('../routes/index')
+const { connect } = require('../db/database')
 
 const port = process.env.PORT || 3000
 app.set('port', port)
