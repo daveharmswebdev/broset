@@ -37,6 +37,8 @@ app.use(session({
 
 app.use(routes)
 
+app.use((req, res) => res.render('404'))
+
 app.use((error, req, res, next) => {
   res.sendStatus(500)
   console.log(error)
