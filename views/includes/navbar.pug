@@ -1,11 +1,11 @@
 .navbar.navbar-default
 	.container-fluid
 		ul.nav.navbar-nav.navbar-right
-			li
+			li(class={active: !page })
 				a(href='/') Patient Tracker
-			li
+			li(class={active: page === 'admit' })
 				a(href='/admit') Admit Patient
-			li
+			li(class={active: page === 'login' })
 				a(href='/login') Login
-			li
+			li(class={active: page === 'register' })
 				a(href='/register') Register

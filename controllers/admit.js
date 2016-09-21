@@ -3,7 +3,7 @@
 const Patient = require('../models/patient')
 
 module.exports.new = (req, res) => {
-	res.render('admit')
+	res.render('admit', {page: 'admit'})
 }
 
 module.exports.create = ({body}, res, next) => {

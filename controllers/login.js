@@ -4,7 +4,7 @@ const User = require('../models/user')
 const bcrypt = require('bcrypt')
 
 module.exports.index = (req, res) => {
-	res.render('login', {})
+	res.render('login', {page: 'login'})
 }
 
 module.exports.show = ({ session, body: {user, pass}}, res, next) => {

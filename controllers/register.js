@@ -4,7 +4,7 @@ const User = require('../models/user')
 const bcrypt = require('bcrypt')
 
 module.exports.new = (req, res) => {
-	res.render('register')
+	res.render('register', {page: 'register'})
 }
 
 module.exports.create = ({body: {user, pass, confirmation}}, res) => {
