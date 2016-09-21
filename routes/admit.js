@@ -3,20 +3,10 @@
 const { Router } = require('express')
 const router = Router()
 
-const Patient = require('../models/patient')
+const ctrl = require('../controllers/admit')
 
-router.get('/admit', (req, res) => {
-	res.render('admit')
-})
+router.get('/admit', ctrl.new)
 
-router.post('/admit', ({body}, res, next) => {
-	let newPatient = body
-	newPatient.admissionDate = new Date().toLocaleString()
-
-	Patient
-		.create(newPatient)
-		.then(() => res.redirect('/'))
-		.catch((err) => next(err))
-})
+router.post('/admit', ctrl.create)
 
 module.exports = router

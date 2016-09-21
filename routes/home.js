@@ -2,13 +2,8 @@
 
 const { Router } = require('express')
 const router = Router()
-const Patient = require('../models/patient')
+const ctrl = require('../controllers/home')
 
-router.get('/', (req, res) => {
-	Patient
-		.find()
-		.sort({lastName: 1})
-		.then( patients => res.render('home', {patients}))
-})
+router.get('/', ctrl.index)
 
 module.exports = router
