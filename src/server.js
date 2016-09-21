@@ -2,9 +2,11 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
-const routes = require('./routes')
+const routes = require('../routes/index')
 const app = express()
 const { connect } = require('../db/database')
+const session = require('express-session')
+const RedisStore = require('connect-redis')(session)
 
 const port = process.env.PORT || 3000
 app.set('port', port)
@@ -13,7 +15,25 @@ app.set('port', port)
 app.set('views', 'views')
 app.set('view engine', 'pug')
 app.use(express.static('public'))
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(session({
+	store: new RedisStore(),
+	secret: 'everyoneIsA6'
+}))
+
+// locals
+// app.locals.company
+// app.locals.errors 
+// app.locals.body
+// app.locals.user
+
+// middleware that captures the user
+// check his pug file as well he did something with the login and register logic
+// for session storage we will use redis
+// app.use((req, res, next) => {
+// 
+// 	app.locals.user = req.session.user
+// })
 
 app.use(routes)
 
