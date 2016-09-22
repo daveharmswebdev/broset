@@ -23,7 +23,9 @@ app.locals.body = {}
 
 // middlewares
 app.use(session({
-	store: new RedisStore(),
+	store: new RedisStore({
+		url: process.env.REDIS_URL || 'redis://localhost:6379'
+	}),
 	secret: 'everyoneIsA6'
 }))
 
