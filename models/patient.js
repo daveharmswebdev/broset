@@ -15,7 +15,8 @@ module.exports = mongoose.model('Patient', {
 				intervention: String,
 				comment: String,
 				dateString: String,
-				date: Number
+				date: Number,
+				employee: String
 			}
 		], 
 		default: []

@@ -49,12 +49,14 @@ block content
 			h2 Patient Broset History
 			each score in scores
 				.row
-					.col-sm-2.col-sm-offset-1
+					.col-sm-1.col-sm-offset-1
 						p #{score.score}
 					.col-sm-2
 						p #{score.intervention}
-					.col-sm-2
+					.col-sm-3
 						p #{score.comment}
 					.col-sm-2
 						p #{score.dateString}
+					.col-sm-2
+						p #{score.employee}
 

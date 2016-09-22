@@ -22,7 +22,7 @@ router.get('/broset/:_id', ({params: {_id}}, res, next) => {
 		.catch( err => next(err))
 })
 
-router.post('/broset/:_id', ({params: {_id}, body: {intervention, comment, score}}, res, next) => {
+router.post('/broset/:_id', ({params: {_id}, session: {user}, body: {intervention, comment, score}}, res, next) => {
 	Patient
 		.update(
 			{ 
@@ -35,7 +35,8 @@ router.post('/broset/:_id', ({params: {_id}, body: {intervention, comment, score
 						intervention: intervention,
 						comment: comment,
 						dateString: new Date().toLocaleString(),
-						date: Date.now()
+						date: Date.now(),
+						employee: user
 					}
 				}
 			}

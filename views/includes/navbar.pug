@@ -5,7 +5,11 @@
 				a(href='/') Patient Tracker
 			li(class={active: page === 'admit' })
 				a(href='/admit') Admit Patient
-			li(class={active: page === 'login' })
-				a(href='/login') Login
-			li(class={active: page === 'register' })
-				a(href='/register') Register
+			if user
+				li 
+					a(href='/logout') #{user} is logged in
+			else
+				li(class={active: page === 'login' })
+					a(href='/login') Login
+				li(class={active: page === 'register' })
+					a(href='/register') Register
