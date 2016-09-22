@@ -10,11 +10,23 @@ const login = require('./login')
 const register = require('./register')
 const logout = require('./logout')
 
+// pulbli route, the only one is login or register
+router.use(login)
+router.use(register)
+
+// guard
+router.use((req, res, next) => {
+	if (req.session.user) {
+		next()
+	} else {
+		res.redirect('/login')
+	}
+})
+
+// private routs
 router.use(admit)
 router.use(broset)
 router.use(home)
-router.use(login)
-router.use(register)
 router.use(logout)
 
 module.exports = router
