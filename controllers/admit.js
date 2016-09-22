@@ -11,7 +11,7 @@ module.exports.create = ({body}, res, next) => {
 	newPatient.admissionDate = new Date().toLocaleString()
 
 	Patient
-		.create(newPatien)
+		.create(newPatient)
 		.then(() => res.redirect('/'))
 		.catch((err) => next(err))
 }
