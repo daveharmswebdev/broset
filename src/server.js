@@ -27,6 +27,12 @@ app.use(session({
 	secret: 'everyoneIsA6'
 }))
 
+app.use((req, res, next) => {
+	app.locals.user = req.session.user
+	console.log('the user is', app.locals.user)
+	next()
+})
+
 // logs out methods
 app.use(({ method, url, headers: { 'user-agent': agent}}, res, next) => {
 	const timeStamp = new Date()
