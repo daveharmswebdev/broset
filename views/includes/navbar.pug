@@ -1,11 +1,11 @@
 .navbar.navbar-default
 	.container-fluid
 		ul.nav.navbar-nav.navbar-right
-			li(class={active: !page })
-				a(href='/') Patient Tracker
-			li(class={active: page === 'admit' })
-				a(href='/admit') Admit Patient
 			if user
+				li(class={active: !page })
+					a(href='/') Patient Tracker
+				li(class={active: page === 'admit' })
+					a(href='/admit') Admit Patient
 				li 
 					a(href='/logout') #{user} is logged in
 			else
