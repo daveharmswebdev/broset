@@ -32,10 +32,3 @@ passport.use(new Strategy({
     });
   }
 ));
-
-
-// passport.use(localStrategy)
-
-
-// var passport = require('passport')
-//   , LocalStrategy = require('passport-local').Strategy;

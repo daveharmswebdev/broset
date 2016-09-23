@@ -1,8 +1,6 @@
 'use strict'
 
 const passport = require('passport')
-const User = require('../models/user')
-const bcrypt = require('bcrypt')
 
 module.exports.edit = (req, res) =>
 	res.render('logout', { page: 'logout' })

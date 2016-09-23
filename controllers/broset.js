@@ -20,7 +20,8 @@ module.exports.new = ({params: {_id}}, res, next) => {
 		.catch( err => next(err))
 }
 
-module.exports.create = ({params: {_id}, session: {user}, body: {intervention, comment, score}}, res, next) => {
+module.exports.create = ({params: {_id}, user: {user}, body: {intervention, comment, score}}, res, next) => {
+	console.log('user******user', user)
 	Patient
 		.update(
 			{ 
