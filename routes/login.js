@@ -2,10 +2,10 @@
 
 const { Router } = require('express')
 const router = Router()
-const ctrl = require('../controllers/login')
+const ctrl = require('../controllers/session')
 
-router.post('/login', ctrl.show)
+router.get('/login', ctrl.new)
 
-router.get('/login', ctrl.index)
+router.post('/login', ctrl.create)
 
 module.exports = router

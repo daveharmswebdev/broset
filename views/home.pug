@@ -1,15 +1,16 @@
 extends includes/layout.pug
 
 block content
-	h1 Hello Patients
-	each patient in patients
-		.row
-			.col-sm-1.col-sm-offset-1
-				p #{patient.room}
-			.col-sm-3
-				- var brosetLink = '/broset/' + patient._id
-				a(href=brosetLink) #{patient.lastName}, #{patient.firstName}
-			.col-sm-3
-				p #{patient.physician}
-			.col-sm-3
-				p #{patient.admissionDate}
+	.container
+		h1 Hello Patients
+		each patient in patients
+			.row
+				.col-sm-1.col-sm-offset-1
+					p #{patient.room}
+				.col-sm-3
+					- var brosetLink = '/broset/' + patient._id
+					a(href=brosetLink) #{patient.lastName}, #{patient.firstName}
+				.col-sm-3
+					p #{patient.physician}
+				.col-sm-3
+					p #{patient.admissionDate}

@@ -2,6 +2,7 @@
 
 const bodyParser = require('body-parser')
 const express = require('express')
+const passport = require('passport')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
 const { red, cyan} = require('chalk')
@@ -21,6 +22,7 @@ app.set('view engine', 'pug')
 app.locals.errors = {} // to avoid guard statements
 app.locals.body = {}
 
+
 // middlewares
 app.use(session({
 	store: new RedisStore({
@@ -29,8 +31,13 @@ app.use(session({
 	secret: 'everyoneIsA6'
 }))
 
+require('./passport-strategies')
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use((req, res, next) => {
-	app.locals.user = req.session.user
+	// why does this work?
+	app.locals.user = req.user && req.user.user
 	console.log('the user is', app.locals.user)
 	next()
 })
